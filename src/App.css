@@ -151,3 +151,15 @@ footer a:hover {
   line-height: 1.6;
   padding-top: 20px;
 }
+
+.editorWrap{
+  width: 170vh !important;
+}
+
+.CodeMirror {
+  min-height: calc(100vh - 20px);
+  width: 100% !important;
+  font-size: 20px;
+  line-height: 1.6;
+  padding-top: 20px;
+}
