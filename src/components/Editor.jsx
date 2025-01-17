@@ -47,13 +47,7 @@ const Editor = ({ socketRef, roomId }) => {
 
     init();
 
-    // return () => {
-    //   // Cleanup CodeMirror instance to prevent duplication
-    //   if (editorRef.current) {
-    //     editorRef.current.toTextArea(); // Convert back to textarea
-    //     editorRef.current = null;
-    //   }
-    // };
+    
 
   }, []);
 
@@ -71,6 +65,12 @@ const Editor = ({ socketRef, roomId }) => {
       })
     }
    
+    return () => {
+      if(socketRef.current) {
+        socketRef.current.off(ACTIONS.CODE_CHANGE)
+    
+       }
+      }
 
   
   }, [socketRef.current])
