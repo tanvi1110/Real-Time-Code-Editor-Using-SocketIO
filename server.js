@@ -9,6 +9,9 @@ const server = createServer(app)
 
 const io = new Server(server)
 
+app.use(express.static('dist'))
+
+
 const userSocketMap = {}
 function getAllConnectedClients(roomId) {
     //map ll return, and we ll convert to array 
@@ -40,6 +43,10 @@ io.on('connection', (socket) => {
       console.log('reciebing', code)
         socket.in(roomId).emit(ACTIONS.CODE_CHANGE, {code})      
     })
+
+    socket.on(ACTIONS.SYNC_CODE, ({socketId, code}) => {
+          io.to(socketId).emit(ACTIONS.CODE_CHANGE, {code})      
+      })
 
 
     socket.on('disconnecting', () => {

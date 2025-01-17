@@ -9,6 +9,7 @@ import ACTIONS from '../Action'
 const EditorPage = () => {
 
   const socketRef = useRef(null)
+  const codeRef = useRef(null)
   const location = useLocation()
   const reactNavigator = useNavigate()
   const {roomId} = useParams()
@@ -45,6 +46,10 @@ const EditorPage = () => {
         }
 
         setClients(clients)
+        socketRef.current.emit(ACTIONS.SYNC_CODE, {
+          code: codeRef.current,
+          socketId
+        })
       })
 
       // listen for disconnection
@@ -123,7 +128,12 @@ const EditorPage = () => {
        <button className='btn leaveBtn' onClick={leaveRoom}>Leave</button>
       </div>
       <div className='editorWrap'>
-         <Editor socketRef={socketRef} roomId={roomId}/>
+         <Editor 
+         socketRef={socketRef} 
+         roomId={roomId} 
+         onCodeChange={(code) => {
+          codeRef.current = code
+        }}/>
       </div>
     </div>
   )
